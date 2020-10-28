@@ -16,7 +16,7 @@ public:
     void printDictionary();
     void enterNewWord(string word, string def);
     string findWordDef(string word);
-
+    bool inDictionary(string word);
 };
 
 
