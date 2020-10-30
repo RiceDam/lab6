@@ -6,39 +6,52 @@ int main() {
     d.storeWords();
     bool inMenu = true;
     while (inMenu) {
-        int choice;
+        bool digit = true;
+        string choice;
+        int choiceInt;
         cout << "1 - Print Dictionary" << endl << "2 - Find word definition" << endl
                 << "3 - Enter new word and definition" << endl << "4 - Exit" << endl;
         cin >> choice;
         cin.ignore();
-        switch (choice) {
-            case 1:
-                d.printDictionary();
-                break;
-            case 2: {
-                cout << "Enter a word to find its definition" << endl;
-                string s;
-                getline(cin, s);
-                cout << d.findWordDef(s);
+        for (int i = 0; i < choice.length(); i++) {
+            if (!isdigit(choice.at(i))) {
+                digit = false;
                 break;
             }
-            case 3: {
-                cout << "Enter the word to enter into the dictionary" << endl;
-                string word;
-                getline(cin, word);
-                if (d.inDictionary(word)) {
-                    cout << "The word already exists in the dictionary" << endl;
-                } else {
-                    cout << "Enter the definition of that word" << endl;
-                    string def;
-                    getline(cin, def);
-                    d.enterNewWord(word, def);
+        }
+        if (digit) {
+            choiceInt = stoi(choice);
+            switch (choiceInt) {
+                case 1:
+                    d.printDictionary();
+                    break;
+                case 2: {
+                    cout << "Enter a word to find its definition" << endl;
+                    string s;
+                    getline(cin, s);
+                    cout << d.findWordDef(s);
+                    break;
                 }
-                break;
+                case 3: {
+                    cout << "Enter the word to enter into the dictionary" << endl;
+                    string word;
+                    getline(cin, word);
+                    if (d.inDictionary(word)) {
+                        cout << "The word already exists in the dictionary" << endl;
+                    } else {
+                        cout << "Enter the definition of that word" << endl;
+                        string def;
+                        getline(cin, def);
+                        d.enterNewWord(word, def);
+                    }
+                    break;
+                }
+                case 4:
+                    inMenu = false;
+                    break;
+                default:
+                    break;
             }
-            case 4:
-                inMenu = false;
-                break;
         }
     }
     return 0;
